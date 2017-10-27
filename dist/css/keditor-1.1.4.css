@@ -3,7 +3,7 @@
  * @copyright: Kademi (http://kademi.co)
  * @author: Kademi (http://kademi.co)
  * @version: 1.1.4
- * @dependencies: $, $.fn.draggable, $.fn.droppable, $.fn.sortable, Bootstrap, FontAwesome (optional)
+ * @dependencies: $, $.fn.draggable, $.fn.droppable, $.fn.sortable, Bootstrap (optional), FontAwesome (optional)
  */
 /* ==================================================================================
    Body
@@ -13,17 +13,22 @@ body {
   overflow-y: scroll;
 }
 /* ==================================================================================
-   KEditor base
+   Keditor UI
    ================================================================================== */
-#keditor-sidebar,
-.keditor-toolbar {
-  font: 14px/1.42857143 "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+.keditor-ui {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
 }
-#keditor-sidebar small,
-.keditor-toolbar small,
-#keditor-sidebar .small,
-.keditor-toolbar .small {
-  font-size: 88% !important;
+.keditor-ui,
+.keditor-ui:before,
+.keditor-ui:after {
+  box-sizing: border-box;
+}
+.keditor-ui small,
+.keditor-ui .small {
+  font-size: 88%;
 }
 /* ==================================================================================
    opened-keditor-sidebar
@@ -75,6 +80,8 @@ body.highlighted-container-content .keditor-container-content:before {
   -webkit-transition: all 0.3s;
   -o-transition: all 0.3s;
   transition: all 0.3s;
+  font: 14px/1.42857143 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
 }
 #keditor-sidebar:hover {
   opacity: 1;
@@ -98,6 +105,46 @@ body.highlighted-container-content .keditor-container-content:before {
   line-height: inherit;
 }
 /* ==================================================================================
+   KEditor Tab
+   ================================================================================== */
+.keditor-tabs {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+.keditor-tabs .keditor-tab {
+  display: table-cell;
+  width: 1%;
+  position: relative;
+}
+.keditor-tabs .keditor-tab a {
+  display: block;
+  border-radius: 3px 3px 0 0;
+  height: 42px;
+  padding: 10px 5px;
+  text-align: center;
+  border: 1px solid transparent;
+  border-bottom-color: #ddd;
+  color: #aaa;
+}
+.keditor-tabs .keditor-tab.active a {
+  font-weight: bold;
+  border-color: #ddd;
+  border-bottom-color: #fff;
+  background: #fff;
+  color: #333;
+}
+/* ==================================================================================
+   KEditor Tab Contents
+   ================================================================================== */
+.keditor-tabs-content .keditor-tab-content {
+  display: none;
+}
+.keditor-tabs-content .keditor-tab-content.active {
+  display: block;
+}
+/* ==================================================================================
    Snippets
    ================================================================================== */
 #keditor-snippets-list {
@@ -108,25 +155,7 @@ body.highlighted-container-content .keditor-container-content:before {
   border-color: #ccc;
 }
 #keditor-snippets-list .keditor-snippet.not-matched {
-  height: 0 !important;
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  overflow: hidden;
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-  border: 0 !important;
-  opacity: 0 !important;
-}
-#keditor-snippets-type-switcher {
-  margin: 0;
-}
-#keditor-snippets-type-switcher > li > a {
-  border-radius: 3px 3px 0 0;
-  height: 42px;
-  padding: 10px 5px;
-}
-#keditor-snippets-type-switcher > li.active > a {
-  font-weight: bold;
+  display: none;
 }
 #keditor-snippets-container {
   height: calc(100% - 42px);
@@ -135,27 +164,27 @@ body.highlighted-container-content .keditor-container-content:before {
   border: solid #ddd;
   border-width: 0 1px 1px;
 }
-#keditor-snippets-container > .keditor-snippets {
+#keditor-snippets-container > .keditor-tab-content {
   height: 100%;
 }
-#keditor-snippets-container > .keditor-snippets > .keditor-snippets-inner {
+#keditor-snippets-container > .keditor-tab-content > .keditor-tab-content-inner {
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
 }
-#keditor-snippets-container > .keditor-snippets > .keditor-snippets-inner:before,
-#keditor-snippets-container > .keditor-snippets > .keditor-snippets-inner:after {
+#keditor-snippets-container > .keditor-tab-content > .keditor-tab-content-inner:before,
+#keditor-snippets-container > .keditor-tab-content > .keditor-tab-content-inner:after {
   content: " ";
   display: table;
 }
-#keditor-snippets-container > .keditor-snippets > .keditor-snippets-inner:after {
+#keditor-snippets-container > .keditor-tab-content > .keditor-tab-content-inner:after {
   clear: both;
 }
-#keditor-snippets-container > .keditor-snippets > .keditor-snippets-filter-wrapper {
+#keditor-snippets-container > .keditor-tab-content > .keditor-snippets-filter-wrapper {
   margin: 0 5px;
 }
-#keditor-snippets-container > .keditor-snippets > .keditor-snippets-filter-wrapper .keditor-snippets-filter,
-#keditor-snippets-container > .keditor-snippets > .keditor-snippets-filter-wrapper .keditor-snippets-search {
+#keditor-snippets-container > .keditor-tab-content > .keditor-snippets-filter-wrapper .keditor-snippets-filter,
+#keditor-snippets-container > .keditor-tab-content > .keditor-snippets-filter-wrapper .keditor-snippets-search {
   border: 1px solid #ddd;
   height: 34px;
   padding: 5px 10px;
@@ -165,7 +194,7 @@ body.highlighted-container-content .keditor-container-content:before {
   display: block;
   margin-bottom: 10px;
 }
-#keditor-snippets-container > .keditor-snippets > .keditor-snippets-filter-wrapper + .keditor-snippets-inner {
+#keditor-snippets-container > .keditor-tab-content > .keditor-snippets-filter-wrapper + .keditor-tab-content-inner {
   height: calc(100% - 88px);
 }
 .keditor-snippet {
@@ -260,6 +289,7 @@ body.highlighted-container-content .keditor-container-content:before {
 #keditor-setting-forms .keditor-setting-form {
   overflow: hidden;
   display: none;
+  min-height: 100%;
 }
 #keditor-setting-forms .keditor-setting-form.active {
   display: block;
@@ -269,16 +299,18 @@ body.highlighted-container-content .keditor-container-content:before {
    ================================================================================== */
 .keditor-toolbar {
   position: absolute;
-  display: none;
+  /*display: none;*/
+  z-index: 100;
+  font: 14px/1.42857143 "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .keditor-toolbar > a {
   padding: 1px 3px;
-  font-size: 12px;
-  width: 20px;
-  height: 20px;
+  font-size: 16px;
+  width: 24px;
+  height: 24px;
   display: block;
   text-align: center;
-  line-height: 20px;
+  line-height: 24px;
 }
 .keditor-toolbar > a .fa {
   line-height: inherit;
@@ -292,6 +324,7 @@ body.highlighted-container-content .keditor-container-content:before {
    ================================================================================== */
 .keditor-container {
   position: relative;
+  padding: 12px;
 }
 .keditor-container:before {
   position: absolute;
@@ -299,9 +332,10 @@ body.highlighted-container-content .keditor-container-content:before {
   right: -3px;
   left: -3px;
   bottom: -3px;
-  border: 3px dashed transparent;
+  border: 1px dashed #cccccc;
   content: " ";
   display: block;
+  margin-top: 10px;
 }
 .keditor-container > .keditor-toolbar {
   top: -3px;
@@ -338,7 +372,7 @@ body.highlighted-container-content .keditor-container-content:before {
   bottom: -1px;
   content: " ";
   display: block;
-  border: 1px dashed #e0e0e0;
+  border: 0px dashed #e0e0e0;
 }
 /* ==================================================================================
    Component
@@ -353,24 +387,29 @@ body.highlighted-container-content .keditor-container-content:before {
   left: -2px;
   bottom: -2px;
   content: " ";
-  border: 2px solid rgba(0, 0, 0, 0.5);
+  /*border: 2px solid @container-content-toolbar-outline-color;*/
   display: none;
   z-index: 1;
 }
 .keditor-component .keditor-toolbar {
-  top: -24px;
-  right: -2px;
-  left: -2px;
-  background-color: rgba(0, 0, 0, 0.5);
+  top: 50%;
+  right: 0px;
+  left: 0px;
+  /*background-color: @container-content-toolbar-bg;*/
   padding: 2px 2px;
-  text-align: right;
+  text-align: center;
+  vertical-align: middle;
 }
 .keditor-component .keditor-toolbar > a {
   border: 0;
-  background: none;
+  background: orange;
   color: #fff;
   text-align: center;
-  border-radius: 0;
+  border-radius: 16px;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  font-size: 1.7em;
   -webkit-box-shadow: none;
   box-shadow: none;
   -webkit-transition: all 0.3s;
@@ -409,7 +448,7 @@ body.highlighted-container-content .keditor-container-content:before {
   -o-transition: none !important;
   transition: none !important;
 }
-.ui-sortable-placeholder {
+.keditor-content-area > .ui-sortable-placeholder {
   background: #eee !important;
   visibility: visible !important;
   height: 10px !important;

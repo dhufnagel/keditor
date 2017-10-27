@@ -329,17 +329,18 @@ body.highlighted-container-content {
    ================================================================================== */
 .keditor-toolbar {
     position: absolute;
-    display: none;
+    /*display: none;*/
+    z-index: 100;
     font: 14px/1.42857143 "Helvetica Neue", Helvetica, Arial, sans-serif;
     
     > a {
         padding: 1px 3px;
-        font-size: 12px;
-        width: 20px;
-        height: 20px;
+        font-size: 16px;
+        width: 24px;
+        height: 24px;
         display: block;
         text-align: center;
-        line-height: 20px;
+        line-height: 24px;
         
         .fa {
             line-height: inherit;
@@ -357,6 +358,7 @@ body.highlighted-container-content {
    ================================================================================== */
 .keditor-container {
     position: relative;
+    padding: 12px;
     
     &:before {
         position: absolute;
@@ -364,9 +366,10 @@ body.highlighted-container-content {
         right: -3px;
         left: -3px;
         bottom: -3px;
-        border: 3px dashed transparent;
+        border: 1px dashed #cccccc;
         content: " ";
         display: block;
+        margin-top: 10px;
     }
     
     > .keditor-toolbar {
@@ -415,7 +418,7 @@ body.highlighted-container-content {
         bottom: -1px;
         content: " ";
         display: block;
-        border: 1px dashed @container-content-outline-color;
+        border: 0px dashed @container-content-outline-color;
         
     }
 }
@@ -433,26 +436,31 @@ body.highlighted-container-content {
         left: -2px;
         bottom: -2px;
         content: " ";
-        border: 2px solid @container-content-toolbar-outline-color;
+        /*border: 2px solid @container-content-toolbar-outline-color;*/
         display: none;
         z-index: 1;
     }
     
     .keditor-toolbar {
-        top: -24px;
-        right: -2px;
-        left: -2px;
-        background-color: @container-content-toolbar-bg;
+        top: 50%;
+        right: 0px;
+        left: 0px;
+        /*background-color: @container-content-toolbar-bg;*/
         padding: 2px 2px;
-        text-align: right;
+        text-align: center;
+        vertical-align: middle;
         
         > a {
             border: 0;
-            background: none;
+            background: orange;
             color: @container-content-toolbar-button-color;
             text-align: center;
-            border-radius: 0;
-            .box-shadow(none);
+            border-radius: 16px;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            font-size: 1.7em;
+            .box-shadow(none); 
             .transition(all @animation-duration);
             display: inline-block;
             
@@ -503,7 +511,7 @@ body.highlighted-container-content {
     }
 }
 
-.ui-sortable-placeholder {
+.keditor-content-area > .ui-sortable-placeholder {
     background: @snippet-placeholder-bg !important;
     visibility: visible !important;
     height: 10px !important;
